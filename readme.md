@@ -6,7 +6,8 @@ It is tested on Ubuntu 20.04, Intel Mac, and M1.
 First, you'll build the contract and set everything up.
 1. Make sure you have wget, make, cmake and nodejs. On Linux, also make sure you have gcc.
 2. `./setup.sh`
-3. `cd nim-game && ./build.sh`
+3. `cd sdk && npm i && cd ..`
+4. `cd nim-game && npm i && ./build.sh`
 5. `export JSVM_ACCOUNT="jsvm.testnet"`
 
 You now need to create an account to deploy the contract to. This can be an existing account or a new one.  
