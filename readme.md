@@ -29,19 +29,31 @@ You first need to initialize the contract and pass in who the two players will b
 ```
 near call $JSVM_ACCOUNT call_js_contract --accountId $NIM_ACCOUNT --args $(node encode_call.js $NIM_ACCOUNT init '["PLAYER_ONE_ACCOUNT_ID", "PLAYER_TWO_ACCOUNT_ID"]') --base64 --amount 1
 ```
+You can check the state of the game at any moment with the following `getState` function (callable by anyone):
+
+```
+near call $JSVM_ACCOUNT call_js_contract --accountId $NIM_ACCOUNT --args $(node encode_call.js $NIM_ACCOUNT getState '') --base64 --amount 1
+```
+This will return something similar to: 
+```
+Log [jsvm.testnet]: Get state called!
+Log [jsvm.testnet]: row1: 1
+Log [jsvm.testnet]: row2: 2
+Log [jsvm.testnet]: row3: 3
+Log [jsvm.testnet]: row4: 4
+Log [jsvm.testnet]: row5: 5
+Log [jsvm.testnet]: player one: js-9.examples.benjiman.testnet
+Log [jsvm.testnet]: player two: benjiman.testnet
+Log [jsvm.testnet]: current turn: 1
+Log [jsvm.testnet]: game active: true
+```
 
 Player one will automatically start and you can call `play` to make a move. This function takes the name of the row as the first parameter and the number of sticks you want to take away as the second parameter. The valid rows are: 
 - "row1", "row2", "row3", "row4", "row5". 
 ```
 near call $JSVM_ACCOUNT call_js_contract --accountId $PLAYER_ONE_ACCOUNT_ID --args $(node encode_call.js $NIM_ACCOUNT play '["row1", 1]') --base64 --amount 1
 ```
-Once player one has gone, it will be player two's turn. You can check the state of the game at any moment with the following `getState` function (callable by anyone):
-
-```
-near call $JSVM_ACCOUNT call_js_contract --accountId $NIM_ACCOUNT --args $(node encode_call.js $NIM_ACCOUNT getState '') --base64 --amount 1
-```
-
-Once there is a total of exactly 1 stick left, the player who is left with that stick loses. At this point, the game is over and no longer playable. To start a new game, run the `newGame` function, once again passing in a player one and player two account ID. 
+Once player one has gone, it will be player two's turn. When there is a total of exactly 1 stick left, the player who is left with that stick loses. At this point, the game is over and no longer playable. To start a new game, run the `newGame` function, once again passing in a player one and player two account ID. 
 
 ```
 near call $JSVM_ACCOUNT call_js_contract --accountId $NIM_ACCOUNT --args $(node encode_call.js $NIM_ACCOUNT newGame '["PLAYER_ONE_ACCOUNT_ID", "PLAYER_TWO_ACCOUNT_ID"]') --base64 --amount 1
