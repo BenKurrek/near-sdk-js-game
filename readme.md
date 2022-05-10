@@ -7,13 +7,13 @@ First, you'll build the contract and set everything up.
 1. Make sure you have wget, make, cmake and nodejs. On Linux, also make sure you have gcc.
 2. `./setup.sh`
 3. `cd sdk && npm i && cd ..`
-4. `cd nim-game && npm i && ./build.sh`
+4. `cd nim-game && npm i && ./build.sh && cd ..`
 5. `export JSVM_ACCOUNT="jsvm.testnet"`
 
 You now need to create an account to deploy the contract to. This can be an existing account or a new one.  
 6. `export NIM_ACCOUNT="YOUR_ACCOUNT_ID_HERE"`
 
-7. `cd .. && near call $JSVM_ACCOUNT deploy_js_contract --accountId $NIM_ACCOUNT --base64 --args $(cat nim-game/build/nim.base64) --deposit 1`
+7. `near call $JSVM_ACCOUNT deploy_js_contract --accountId $NIM_ACCOUNT --base64 --args $(cat nim-game/build/nim.base64) --deposit 1`
 
 
 ### Rules of the game
