@@ -11,6 +11,7 @@ First, you'll build the contract and set everything up.
 
 You now need to create an account to deploy the contract to. This can be an existing account or a new one.  
 6. `export NIM_ACCOUNT="YOUR_ACCOUNT_ID_HERE"`
+
 7. `near deploy --wasmFile nim-game/build/nim.wasm --accountId $NIM_ACCOUNT`
 
 ## Quickstart Guide (enclave approach)
@@ -25,6 +26,7 @@ First, you'll build the contract and set everything up.
 
 You now need to create an account to deploy the contract to. This can be an existing account or a new one.  
 6. `export NIM_ACCOUNT="YOUR_ACCOUNT_ID_HERE"`
+
 7. `near call $JSVM_ACCOUNT deploy_js_contract --accountId $NIM_ACCOUNT --base64 --args $(cat nim-game/build/nim.base64) --deposit 1`
 
 
