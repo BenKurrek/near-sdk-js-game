@@ -40,12 +40,12 @@ This contract is based on the popular game [nim](https://en.wikipedia.org/wiki/N
 ### Playing the game (wasm approach)
 You first need to initialize the contract and pass in who the two players will be. Those two players will be locked into the game until it is finished and only they can make moves. Run the following command, but replace the `PLAYER_ONE_ACCOUNT_ID` and `PLAYER_TWO_ACCOUNT_ID` with actual account IDs. 
 ```
-near call $NIM_ACCOUNT init '{"PLAYER_ONE_ACCOUNT_ID", "PLAYER_TWO_ACCOUNT_ID"}' --accountId $NIM_ACCOUNT
+near call $NIM_ACCOUNT init '{"playerOne": "PLAYER_ONE_ACCOUNT_ID", "playerTwo": "PLAYER_TWO_ACCOUNT_ID"}' --accountId $NIM_ACCOUNT
 ```
 You can check the state of the game at any moment with the following `getState` function (callable by anyone):
 
 ```
-near call $JSVM_ACCOUNT call_js_contract --accountId $NIM_ACCOUNT --args $(node encode_call.js $NIM_ACCOUNT getState '') --base64 --amount 1
+near view $NIM_ACCOUNT getState
 ```
 This will return something similar to: 
 ```
@@ -64,12 +64,12 @@ Log [jsvm.testnet]: game active: true
 Player one will automatically start and you can call `play` to make a move. This function takes the name of the row as the first parameter and the number of sticks you want to take away as the second parameter. The valid rows are: 
 - "row1", "row2", "row3", "row4", "row5". 
 ```
-near call $JSVM_ACCOUNT call_js_contract --accountId $PLAYER_ONE_ACCOUNT_ID --args $(node encode_call.js $NIM_ACCOUNT play '["row1", 1]') --base64 --amount 1
+near call $NIM_ACCOUNT play '{"row": "row1", "number": 1}' --accountId PLAYER_ONE_ACCOUNT_ID
 ```
 Once player one has gone, it will be player two's turn. When there is a total of exactly 1 stick left, the player who is left with that stick loses. At this point, the game is over and no longer playable. To start a new game, run the `newGame` function, once again passing in a player one and player two account ID. 
 
 ```
-near call $JSVM_ACCOUNT call_js_contract --accountId $NIM_ACCOUNT --args $(node encode_call.js $NIM_ACCOUNT newGame '["PLAYER_ONE_ACCOUNT_ID", "PLAYER_TWO_ACCOUNT_ID"]') --base64 --amount 1
+near call $NIM_ACCOUNT newGame '{"playerOne": "PLAYER_ONE_ACCOUNT_ID", "playerTwo": "PLAYER_TWO_ACCOUNT_ID"}' --accountId $NIM_ACCOUNT
 ```
 
 ### Playing the game (enclave approach)
