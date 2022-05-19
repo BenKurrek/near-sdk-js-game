@@ -1,13 +1,26 @@
 # NEAR-SDK-JS Nim Game
 
-## Quickstart Guide
+## Quickstart Guide (wasm approach)
 It is tested on Ubuntu 20.04, Intel Mac, and M1.
 
 First, you'll build the contract and set everything up.
 1. Make sure you have wget, make, cmake and nodejs. On Linux, also make sure you have gcc.
 2. `./setup.sh`
 3. `cd sdk && npm i && cd ..`
-4. `cd nim-game && npm i && ./build.sh && cd ..`
+4. `cd nim-game && npm i && ./build-wasm.sh && cd ..`
+
+You now need to create an account to deploy the contract to. This can be an existing account or a new one.  
+6. `export NIM_ACCOUNT="YOUR_ACCOUNT_ID_HERE"`
+7. `near deploy --wasmFile nim-game/build/nim.wasm --accountId $NIM_ACCOUNT`
+
+## Quickstart Guide (enclave approach)
+It is tested on Ubuntu 20.04, Intel Mac, and M1.
+
+First, you'll build the contract and set everything up.
+1. Make sure you have wget, make, cmake and nodejs. On Linux, also make sure you have gcc.
+2. `./setup.sh`
+3. `cd sdk && npm i && cd ..`
+4. `cd nim-game && npm i && ./build-base64.sh && cd ..`
 5. `export JSVM_ACCOUNT="jsvm.testnet"`
 
 You now need to create an account to deploy the contract to. This can be an existing account or a new one.  
@@ -24,7 +37,7 @@ This contract is based on the popular game [nim](https://en.wikipedia.org/wiki/N
 - You can take away as many sticks as you want from **one row at a time** and your turn is finished.
 - The players will alternate turns and the one that ends up with the last stick loses.
 
-### Playing the game
+### Playing the game (enclave approach)
 You first need to initialize the contract and pass in who the two players will be. Those two players will be locked into the game until it is finished and only they can make moves. Run the following command, but replace the `PLAYER_ONE_ACCOUNT_ID` and `PLAYER_TWO_ACCOUNT_ID` with actual account IDs. 
 ```
 near call $JSVM_ACCOUNT call_js_contract --accountId $NIM_ACCOUNT --args $(node encode_call.js $NIM_ACCOUNT init '["PLAYER_ONE_ACCOUNT_ID", "PLAYER_TWO_ACCOUNT_ID"]') --base64 --amount 1
