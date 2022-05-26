@@ -1,23 +1,24 @@
 {
-  "name": "near-sdk-js-builder",
+  "name": "near-sdk-js-game",
   "version": "1.0.0",
-  "description": "Scripts to build contracts written with NEAR-SDK-JS",
-  "main": "encode_call.js",
-  "type": "module",
+  "description": "",
+  "main": "index.js",
   "scripts": {
+    "build": "near-sdk build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/near/near-sdk-js.git"
+    "url": "git+https://github.com/BenKurrek/near-sdk-js-game.git"
   },
-  "author": "Near Inc <hello@nearprotocol.com>",
-  "license": "Apache-2.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/near/near-sdk-js/issues"
+    "url": "https://github.com/BenKurrek/near-sdk-js-game/issues"
   },
-  "homepage": "https://github.com/near/near-sdk-js#readme",
+  "homepage": "https://github.com/BenKurrek/near-sdk-js-game#readme",
   "dependencies": {
-    "source-map-js": "^1.0.2"
+    "near-sdk-js": "^0.2.0"
   }
 }
