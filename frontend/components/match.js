@@ -2,19 +2,21 @@ import React, { useState, useEffect } from "react";
 import burntMatch from '../assets/matches/burnt-match.png';
 import litMatch from '../assets/matches/lit-match.png';
 
-const Match = ({ row, index, gameState, onSelect }) => {
+const Match = ({ row, index, gameState, onSelect, selectedRow, selectedMatchIndex, setSelectedMatchIndex }) => {
     const [curImage, setCurImage] = useState(burntMatch);
     
     useEffect(() => {
-        if(gameState[row]) {
+        console.log("game state changed")
+        if(gameState[row] && selectedRow != row || index != selectedMatchIndex) {
             setCurImage(gameState[row] >= index ? litMatch : burntMatch)
         }
-      }, [gameState]);
+      }, [gameState, selectedRow]);
 
     const imageClick = () => {
         if(curImage != burntMatch) {
             setCurImage(burntMatch)
             onSelect(row)
+            setSelectedMatchIndex(index)
             console.log('Click');
         } else {
             console.log("already clicked")
@@ -25,6 +27,7 @@ const Match = ({ row, index, gameState, onSelect }) => {
         <img 
             src={curImage} 
             onClick={() => imageClick()}
+            style={{'cursor':'pointer'}}
         />
       );
 };

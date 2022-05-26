@@ -35,19 +35,6 @@ const App = ({ wallet, contractId }) => {
     }
   }, []);
 
-  const onSelect = (row) => {
-    console.log("selected")
-    
-    if(selectedRow != row) {
-      setSelectedRow(row);
-      setSelectedNumber(1);
-      console.log('new row: ', row)
-    } else {
-      setSelectedNumber(selectedNumber + 1)
-      console.log('selectedNumber + 1: ', selectedNumber + 1)
-    }
-  };
-
   const signIn = () => {
     wallet.requestSignIn(
       {contractId: "jsvm.testnet", methodNames: ['call_js_contract']},
@@ -92,7 +79,7 @@ const App = ({ wallet, contractId }) => {
           Please make a selection
         </h2>
       }
-      <MatchBoard gameState={currentState} onSelect={onSelect}/>
+      <MatchBoard gameState={currentState} selectedNumber={selectedNumber} setSelectedNumber={setSelectedNumber} selectedRow={selectedRow} setSelectedRow={setSelectedRow} />
     </main>
   );
 };

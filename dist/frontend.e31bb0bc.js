@@ -29998,7 +29998,10 @@ var Match = function Match(_ref) {
   var row = _ref.row,
       index = _ref.index,
       gameState = _ref.gameState,
-      onSelect = _ref.onSelect;
+      onSelect = _ref.onSelect,
+      selectedRow = _ref.selectedRow,
+      selectedMatchIndex = _ref.selectedMatchIndex,
+      setSelectedMatchIndex = _ref.setSelectedMatchIndex;
 
   var _useState = (0, _react.useState)(_burntMatch.default),
       _useState2 = _slicedToArray(_useState, 2),
@@ -30006,15 +30009,18 @@ var Match = function Match(_ref) {
       setCurImage = _useState2[1];
 
   (0, _react.useEffect)(function () {
-    if (gameState[row]) {
+    console.log("game state changed");
+
+    if (gameState[row] && selectedRow != row || index != selectedMatchIndex) {
       setCurImage(gameState[row] >= index ? _litMatch.default : _burntMatch.default);
     }
-  }, [gameState]);
+  }, [gameState, selectedRow]);
 
   var imageClick = function imageClick() {
     if (curImage != _burntMatch.default) {
       setCurImage(_burntMatch.default);
       onSelect(row);
+      setSelectedMatchIndex(index);
       console.log('Click');
     } else {
       console.log("already clicked");
@@ -30025,208 +30031,16 @@ var Match = function Match(_ref) {
     src: curImage,
     onClick: function onClick() {
       return imageClick();
+    },
+    style: {
+      'cursor': 'pointer'
     }
   });
 };
 
 var _default = Match;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","../assets/matches/burnt-match.png":"assets/matches/burnt-match.png","../assets/matches/lit-match.png":"assets/matches/lit-match.png"}],"components/row-1.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _match = _interopRequireDefault(require("./match"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Row1 = function Row1(_ref) {
-  var gameState = _ref.gameState,
-      onSelect = _ref.onSelect;
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "centered"
-  }, /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row1",
-    index: 1,
-    gameState: gameState,
-    onSelect: onSelect
-  }));
-};
-
-var _default = Row1;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","./match":"components/match.js"}],"components/row-2.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _match = _interopRequireDefault(require("./match"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Row2 = function Row2(_ref) {
-  var gameState = _ref.gameState,
-      onSelect = _ref.onSelect;
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "centered"
-  }, /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row2",
-    index: 1,
-    gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row2",
-    index: 2,
-    gameState: gameState,
-    onSelect: onSelect
-  }));
-};
-
-var _default = Row2;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","./match":"components/match.js"}],"components/row-3.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _match = _interopRequireDefault(require("./match"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Row3 = function Row3(_ref) {
-  var gameState = _ref.gameState,
-      onSelect = _ref.onSelect;
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "centered"
-  }, /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row3",
-    index: 1,
-    gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row3",
-    index: 2,
-    gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row3",
-    index: 3,
-    gameState: gameState,
-    onSelect: onSelect
-  }));
-};
-
-var _default = Row3;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","./match":"components/match.js"}],"components/row-4.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _match = _interopRequireDefault(require("./match"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Row4 = function Row4(_ref) {
-  var gameState = _ref.gameState,
-      onSelect = _ref.onSelect;
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "centered"
-  }, /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row4",
-    index: 1,
-    gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row4",
-    index: 2,
-    gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row4",
-    index: 3,
-    gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row4",
-    index: 4,
-    gameState: gameState,
-    onSelect: onSelect
-  }));
-};
-
-var _default = Row4;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","./match":"components/match.js"}],"components/row-5.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _match = _interopRequireDefault(require("./match"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Row5 = function Row5(_ref) {
-  var gameState = _ref.gameState,
-      onSelect = _ref.onSelect;
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "centered"
-  }, /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row5",
-    index: 1,
-    gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row5",
-    index: 2,
-    gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row5",
-    index: 3,
-    gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row5",
-    index: 4,
-    gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_match.default, {
-    row: "row5",
-    index: 5,
-    gameState: gameState,
-    onSelect: onSelect
-  }));
-};
-
-var _default = Row5;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","./match":"components/match.js"}],"components/match-board.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../assets/matches/burnt-match.png":"assets/matches/burnt-match.png","../assets/matches/lit-match.png":"assets/matches/lit-match.png"}],"components/match-board.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30236,15 +30050,7 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _row = _interopRequireDefault(require("./row-1"));
-
-var _row2 = _interopRequireDefault(require("./row-2"));
-
-var _row3 = _interopRequireDefault(require("./row-3"));
-
-var _row4 = _interopRequireDefault(require("./row-4"));
-
-var _row5 = _interopRequireDefault(require("./row-5"));
+var _match = _interopRequireDefault(require("./match"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30252,30 +30058,178 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 var MatchBoard = function MatchBoard(_ref) {
   var gameState = _ref.gameState,
-      onSelect = _ref.onSelect;
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_row5.default, {
+      selectedNumber = _ref.selectedNumber,
+      setSelectedNumber = _ref.setSelectedNumber,
+      selectedRow = _ref.selectedRow,
+      setSelectedRow = _ref.setSelectedRow;
+
+  var _useState = (0, _react.useState)(0),
+      _useState2 = _slicedToArray(_useState, 2),
+      selectedMatchIndex = _useState2[0],
+      setSelectedMatchIndex = _useState2[1];
+
+  var onSelect = function onSelect(row) {
+    console.log("selected");
+
+    if (selectedRow != row) {
+      setSelectedRow(row);
+      setSelectedNumber(1);
+    } else {
+      setSelectedNumber(selectedNumber + 1);
+      console.log('selectedNumber + 1: ', selectedNumber + 1);
+    }
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+    className: "centered"
+  }, /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row5",
+    index: 1,
     gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_row4.default, {
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  }), /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row5",
+    index: 2,
     gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_row3.default, {
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  }), /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row5",
+    index: 3,
     gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_row2.default, {
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  }), /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row5",
+    index: 4,
     gameState: gameState,
-    onSelect: onSelect
-  }), /*#__PURE__*/_react.default.createElement(_row.default, {
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  }), /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row5",
+    index: 5,
     gameState: gameState,
-    onSelect: onSelect
-  }));
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "centered"
+  }, /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row4",
+    index: 1,
+    gameState: gameState,
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  }), /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row4",
+    index: 2,
+    gameState: gameState,
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  }), /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row4",
+    index: 3,
+    gameState: gameState,
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  }), /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row4",
+    index: 4,
+    gameState: gameState,
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "centered"
+  }, /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row3",
+    index: 1,
+    gameState: gameState,
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  }), /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row3",
+    index: 2,
+    gameState: gameState,
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  }), /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row3",
+    index: 3,
+    gameState: gameState,
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "centered"
+  }, /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row2",
+    index: 1,
+    gameState: gameState,
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  }), /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row2",
+    index: 2,
+    gameState: gameState,
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "centered"
+  }, /*#__PURE__*/_react.default.createElement(_match.default, {
+    row: "row1",
+    index: 1,
+    gameState: gameState,
+    onSelect: onSelect,
+    setSelectedMatchIndex: setSelectedMatchIndex,
+    selectedMatchIndex: selectedMatchIndex,
+    selectedRow: selectedRow
+  })));
 };
 
 var _default = MatchBoard;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./row-1":"components/row-1.js","./row-2":"components/row-2.js","./row-3":"components/row-3.js","./row-4":"components/row-4.js","./row-5":"components/row-5.js"}],"../node_modules/base64-js/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./match":"components/match.js"}],"../node_modules/base64-js/index.js":[function(require,module,exports) {
 'use strict'
 
 exports.byteLength = byteLength
@@ -32438,19 +32392,6 @@ var App = function App(_ref) {
     }, _callee);
   })), []);
 
-  var onSelect = function onSelect(row) {
-    console.log("selected");
-
-    if (selectedRow != row) {
-      setSelectedRow(row);
-      setSelectedNumber(1);
-      console.log('new row: ', row);
-    } else {
-      setSelectedNumber(selectedNumber + 1);
-      console.log('selectedNumber + 1: ', selectedNumber + 1);
-    }
-  };
-
   var signIn = function signIn() {
     wallet.requestSignIn({
       contractId: "jsvm.testnet",
@@ -32473,7 +32414,10 @@ var App = function App(_ref) {
     onClick: signIn
   }, "Log in")), selectedRow ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h2", null, "Row: ", selectedRow), /*#__PURE__*/_react.default.createElement("h2", null, "Matches: ", selectedNumber)) : /*#__PURE__*/_react.default.createElement("h2", null, "Please make a selection"), /*#__PURE__*/_react.default.createElement(_matchBoard.default, {
     gameState: currentState,
-    onSelect: onSelect
+    selectedNumber: selectedNumber,
+    setSelectedNumber: setSelectedNumber,
+    selectedRow: selectedRow,
+    setSelectedRow: setSelectedRow
   }));
 };
 
@@ -50782,7 +50726,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57543" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51140" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

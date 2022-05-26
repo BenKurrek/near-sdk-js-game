@@ -1,18 +1,53 @@
 import React, { useState, useEffect } from "react";
-import Row1 from "./row-1";
-import Row2 from "./row-2";
-import Row3 from "./row-3";
-import Row4 from "./row-4";
-import Row5 from "./row-5";
+import Match from "./match";
 
-const MatchBoard = ({ gameState, onSelect }) => {
+const MatchBoard = ({ gameState, selectedNumber, setSelectedNumber, selectedRow, setSelectedRow}) => {
+    const [selectedMatchIndex, setSelectedMatchIndex] = useState(0);
+
+    const onSelect = (row) => {
+        console.log("selected")
+        
+        if(selectedRow != row) {
+          setSelectedRow(row);
+          setSelectedNumber(1);
+        } else {
+          setSelectedNumber(selectedNumber + 1)
+          console.log('selectedNumber + 1: ', selectedNumber + 1)
+        }
+    };
+
     return (
         <div>
-            <Row5 gameState={gameState} onSelect={onSelect}/>
-            <Row4 gameState={gameState} onSelect={onSelect}/>
-            <Row3 gameState={gameState} onSelect={onSelect}/>
-            <Row2 gameState={gameState} onSelect={onSelect}/>
-            <Row1 gameState={gameState} onSelect={onSelect}/>
+            {/* ROW 5 */}
+            <div className="centered">
+                <Match row={"row5"} index={1} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+                <Match row={"row5"} index={2} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+                <Match row={"row5"} index={3} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+                <Match row={"row5"} index={4} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+                <Match row={"row5"} index={5} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+            </div>
+            {/* ROW 4 */}
+            <div className="centered">
+                <Match row={"row4"} index={1} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+                <Match row={"row4"} index={2} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+                <Match row={"row4"} index={3} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+                <Match row={"row4"} index={4} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+            </div>
+            {/* ROW 3 */}
+            <div className="centered">
+                <Match row={"row3"} index={1} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+                <Match row={"row3"} index={2} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+                <Match row={"row3"} index={3} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+            </div>  
+            {/* ROW 2 */}         
+            <div className="centered">
+                <Match row={"row2"} index={1} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+                <Match row={"row2"} index={2} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+            </div>
+            {/* ROW 1 */}
+            <div className="centered">
+                <Match row={"row1"} index={1} gameState={gameState} onSelect={onSelect} setSelectedMatchIndex={setSelectedMatchIndex} selectedMatchIndex={selectedMatchIndex} selectedRow={selectedRow}/>
+            </div>
         </div>
     );
 };
