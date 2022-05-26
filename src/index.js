@@ -117,6 +117,13 @@ class NimContract extends NearContract {
         env.log(`current turn: ${this.currentTurn}`);
         env.log(`game active: ${this.isGameActive}`);
 
-        return this.boardState
+        let state = {};
+        state["boardState"] = this.boardState;
+        state["playerOne"] = this.playerOne;
+        state["playerTwo"] = this.playerTwo;
+        state["currentTurn"] = this.currentTurn;
+        state["isGameActive"] = this.isGameActive;
+
+        return state;
     }
 }

@@ -194,7 +194,13 @@ let NimContract = NearBindgen(_class = (_class2 = class NimContract extends Near
     env.log(`player two: ${this.playerTwo}`);
     env.log(`current turn: ${this.currentTurn}`);
     env.log(`game active: ${this.isGameActive}`);
-    return this.boardState;
+    let state = {};
+    state["boardState"] = this.boardState;
+    state["playerOne"] = this.playerOne;
+    state["playerTwo"] = this.playerTwo;
+    state["currentTurn"] = this.currentTurn;
+    state["isGameActive"] = this.isGameActive;
+    return state;
   }
 
 }, (_applyDecoratedDescriptor(_class2.prototype, "play", [call], Object.getOwnPropertyDescriptor(_class2.prototype, "play"), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, "newGame", [call], Object.getOwnPropertyDescriptor(_class2.prototype, "newGame"), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, "getState", [view], Object.getOwnPropertyDescriptor(_class2.prototype, "getState"), _class2.prototype)), _class2)) || _class;
