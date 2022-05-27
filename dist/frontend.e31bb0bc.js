@@ -36108,7 +36108,7 @@ var NewGame = function NewGame(_ref) {
                 methodName: 'call_js_contract',
                 args: _args,
                 gas: "300000000000000",
-                amount: parseNearAmount('0.1')
+                attachedDeposit: parseNearAmount('0.1')
               });
 
             case 18:
@@ -36167,7 +36167,7 @@ var NewGame = function NewGame(_ref) {
   })), /*#__PURE__*/_react.default.createElement("button", {
     type: "submit",
     disabled: loading
-  }, "Start New Game")));
+  }, loading ? "Starting..." : "Start New Game")));
 };
 
 var _default = NewGame;
@@ -36393,21 +36393,23 @@ var App = function App(_ref) {
               result = _context3.sent;
               console.log('result: ', result);
               setLoading(false);
-              _context3.next = 14;
+              checkNewMoves();
+              _context3.next = 16;
               break;
 
-            case 10:
-              _context3.prev = 10;
+            case 11:
+              _context3.prev = 11;
               _context3.t0 = _context3["catch"](1);
               alert(_context3.t0);
               setLoading(false);
+              checkNewMoves();
 
-            case 14:
+            case 16:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 10]]);
+      }, _callee3, null, [[1, 11]]);
     }));
 
     return function confirmSelection() {
@@ -36419,7 +36421,9 @@ var App = function App(_ref) {
     className: "centered"
   }, /*#__PURE__*/_react.default.createElement("img", {
     src: _title2x.default
-  })), /*#__PURE__*/_react.default.createElement("main", {
+  })), /*#__PURE__*/_react.default.createElement("h5", {
+    className: "centered"
+  }, contractId), /*#__PURE__*/_react.default.createElement("main", {
     className: "row"
   }, /*#__PURE__*/_react.default.createElement("header", {
     className: "left-panel"

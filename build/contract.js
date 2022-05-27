@@ -146,13 +146,14 @@ let NimContract = NearBindgen(_class = (_class2 = class NimContract extends Near
     if (totalLeft == 1) {
       env.log(`${this.currentTurn == 1 ? this.playerOne : this.playerTwo} has won the game!`);
       this.isGameActive = false;
-      return;
     } else {
       env.log(`There are ${totalLeft} left`);
     }
 
-    this.currentTurn = this.currentTurn % 2 + 1;
-    env.log(`current turn after switching ${this.currentTurn}`);
+    if (totalLeft != 1) {
+      this.currentTurn = this.currentTurn % 2 + 1;
+      env.log(`current turn after switching ${this.currentTurn}`);
+    }
   }
   /*
       start a new game. this can only be called if there is no game active.

@@ -67,13 +67,14 @@ class NimContract extends NearContract {
         if(totalLeft == 1) {
             env.log(`${this.currentTurn == 1 ? this.playerOne : this.playerTwo} has won the game!`);
             this.isGameActive = false;
-            return
         } else {
             env.log(`There are ${totalLeft} left`);
         }
 
-        this.currentTurn = this.currentTurn % 2 + 1
-        env.log(`current turn after switching ${this.currentTurn}`)
+        if(totalLeft != 1) {
+            this.currentTurn = this.currentTurn % 2 + 1
+            env.log(`current turn after switching ${this.currentTurn}`)
+        }
     }
 
     /*

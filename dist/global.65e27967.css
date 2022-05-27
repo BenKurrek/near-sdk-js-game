@@ -132,7 +132,6 @@ button:active {
 
 .row {
   display: flex;
-  padding-top: 25px;
 }
 
 .left-panel {
@@ -141,6 +140,10 @@ button:active {
 
 .right-panel {
   flex: 4;
+}
+
+h2 {
+  margin-top: 0px;
 }
 
 .game-info h3 {

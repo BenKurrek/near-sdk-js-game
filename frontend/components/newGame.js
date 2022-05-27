@@ -33,7 +33,7 @@ const NewGame = ({ wallet, contractId }) => {
                     methodName: 'call_js_contract',
                     args,
                     gas: "300000000000000", 
-                    amount: parseNearAmount('0.1')
+                    attachedDeposit: parseNearAmount('0.1')
                 });
                 setLoading(false)
             }
@@ -69,7 +69,7 @@ const NewGame = ({ wallet, contractId }) => {
                     />
                 </p>
                 <button type="submit" disabled={loading}>
-                    Start New Game
+                    {loading ? "Starting..." : "Start New Game"}
                 </button>
             </fieldset>
         </form>

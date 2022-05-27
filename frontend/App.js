@@ -83,9 +83,11 @@ const App = ({ wallet, contractId }) => {
       });
       console.log('result: ', result)
       setLoading(false)
+      checkNewMoves();
     } catch (e) {
       alert(e)
       setLoading(false)
+      checkNewMoves()
     }
   };
 
@@ -94,6 +96,9 @@ const App = ({ wallet, contractId }) => {
       <h1 className="centered">
         <img src={matchesTitle} />
       </h1>
+      <h5 className="centered">
+        {contractId}
+      </h5>
       <main className="row">
         <header className="left-panel">
 
