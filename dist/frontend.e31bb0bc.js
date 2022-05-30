@@ -29980,7 +29980,7 @@ var ActiveGameInfo = function ActiveGameInfo(_ref) {
       selectedNumber = _ref.selectedNumber;
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "game-info"
-  }, isGameActive == true ? /*#__PURE__*/_react.default.createElement("h3", null, "Game Status: Live!") : /*#__PURE__*/_react.default.createElement("h3", null, "Game Status: Not Active.."), /*#__PURE__*/_react.default.createElement("h6", null, "Player1: ", playerOne), /*#__PURE__*/_react.default.createElement("h6", null, "Player2: ", playerTwo), /*#__PURE__*/_react.default.createElement("h4", null, currentPlayer, "'s Move."), selectedRow ? /*#__PURE__*/_react.default.createElement("div", {
+  }, isGameActive == 1 ? /*#__PURE__*/_react.default.createElement("h3", null, "Game Status: Live!") : /*#__PURE__*/_react.default.createElement("h3", null, "Game Status: Not Active.."), /*#__PURE__*/_react.default.createElement("h6", null, "Player1: ", playerOne), /*#__PURE__*/_react.default.createElement("h6", null, "Player2: ", playerTwo), /*#__PURE__*/_react.default.createElement("h4", null, currentPlayer, "'s Move."), selectedRow ? /*#__PURE__*/_react.default.createElement("div", {
     className: "spaced"
   }, /*#__PURE__*/_react.default.createElement("h3", null, "Row: ", selectedRow.split("row")[1]), /*#__PURE__*/_react.default.createElement("h3", null, "Matches: ", selectedNumber)) : /*#__PURE__*/_react.default.createElement("h3", {
     className: "spaced"
@@ -36052,7 +36052,8 @@ function encodeCall(contract, method, args) {
 
 var NewGame = function NewGame(_ref) {
   var wallet = _ref.wallet,
-      contractId = _ref.contractId;
+      contractId = _ref.contractId,
+      onNewGame = _ref.onNewGame;
 
   var _useState = (0, _react.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
@@ -36093,16 +36094,17 @@ var NewGame = function NewGame(_ref) {
               result = _context.sent;
               console.log('result: ', result);
               setLoading(false);
-              _context.next = 26;
+              onNewGame();
+              _context.next = 27;
               break;
 
-            case 11:
-              _context.prev = 11;
+            case 12:
+              _context.prev = 12;
               _context.t0 = _context["catch"](2);
               console.log('e1: ', _context.t0);
-              _context.prev = 14;
+              _context.prev = 15;
               _args = encodeCall(contractId, 'init', "[\"".concat(playerOne, "\", \"").concat(playerTwo, "\"]"));
-              _context.next = 18;
+              _context.next = 19;
               return wallet.account().functionCall({
                 contractId: "jsvm.testnet",
                 methodName: 'call_js_contract',
@@ -36111,24 +36113,24 @@ var NewGame = function NewGame(_ref) {
                 attachedDeposit: parseNearAmount('0.1')
               });
 
-            case 18:
+            case 19:
               _result = _context.sent;
               setLoading(false);
-              _context.next = 26;
+              _context.next = 27;
               break;
 
-            case 22:
-              _context.prev = 22;
-              _context.t1 = _context["catch"](14);
+            case 23:
+              _context.prev = 23;
+              _context.t1 = _context["catch"](15);
               console.log('e2: ', _context.t1);
               setLoading(false);
 
-            case 26:
+            case 27:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[2, 11], [14, 22]]);
+      }, _callee, null, [[2, 12], [15, 23]]);
     }));
 
     return function onSubmit(_x) {
@@ -36258,7 +36260,7 @@ var App = function App(_ref) {
       currentPlayer = _useState12[0],
       setCurrentPlayer = _useState12[1];
 
-  var _useState13 = (0, _react.useState)(true),
+  var _useState13 = (0, _react.useState)(1),
       _useState14 = _slicedToArray(_useState13, 2),
       isGameActive = _useState14[0],
       setIsGameActive = _useState14[1];
@@ -36291,7 +36293,7 @@ var App = function App(_ref) {
             }
 
             _context.next = 4;
-            return checkNewMoves();
+            return getGameState();
 
           case 4:
           case "end":
@@ -36319,8 +36321,8 @@ var App = function App(_ref) {
     setSelectedMatchIndex(0);
   };
 
-  var checkNewMoves = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+  var getGameState = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(movePlayed) {
       var args, stateView;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
@@ -36338,6 +36340,11 @@ var App = function App(_ref) {
             case 4:
               stateView = _context2.sent;
 
+              if (movePlayed && stateView.isGameActive == 0) {
+                alert("".concat(currentPlayer, " Has Won The Game!"));
+                location.reload();
+              }
+
               if (stateView.currentTurn != currentTurn) {
                 setCurrentState(stateView.boardState);
                 setCurrentTurn(stateView.currentTurn);
@@ -36345,28 +36352,27 @@ var App = function App(_ref) {
                 setPlayerTwo(stateView.playerTwo);
                 setCurrentPlayer(stateView.currentTurn == "1" ? stateView.playerOne : stateView.playerTwo);
                 setIsGameActive(stateView.isGameActive);
-                console.log("new turn!");
-              } else {
-                console.log("no new turn dedected...");
+              } else if (stateView.isGameActive == 1) {
+                alert("no new turn detected...");
               }
 
-              _context2.next = 11;
+              _context2.next = 12;
               break;
 
-            case 8:
-              _context2.prev = 8;
+            case 9:
+              _context2.prev = 9;
               _context2.t0 = _context2["catch"](0);
-              setIsGameActive(false);
+              setIsGameActive(0);
 
-            case 11:
+            case 12:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 8]]);
+      }, _callee2, null, [[0, 9]]);
     }));
 
-    return function checkNewMoves() {
+    return function getGameState(_x) {
       return _ref3.apply(this, arguments);
     };
   }();
@@ -36393,23 +36399,24 @@ var App = function App(_ref) {
               result = _context3.sent;
               console.log('result: ', result);
               setLoading(false);
-              checkNewMoves();
-              _context3.next = 16;
+              _context3.next = 14;
               break;
 
-            case 11:
-              _context3.prev = 11;
+            case 10:
+              _context3.prev = 10;
               _context3.t0 = _context3["catch"](1);
               alert(_context3.t0);
               setLoading(false);
-              checkNewMoves();
 
-            case 16:
+            case 14:
+              getGameState(true);
+
+            case 15:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 11]]);
+      }, _callee3, null, [[1, 10]]);
     }));
 
     return function confirmSelection() {
@@ -36427,7 +36434,7 @@ var App = function App(_ref) {
     className: "row"
   }, /*#__PURE__*/_react.default.createElement("header", {
     className: "left-panel"
-  }, /*#__PURE__*/_react.default.createElement(_instructions.default, null), wallet.getAccountId() ? /*#__PURE__*/_react.default.createElement("div", null, isGameActive == true ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_activeGameInfo.default, {
+  }, /*#__PURE__*/_react.default.createElement(_instructions.default, null), wallet.getAccountId() ? /*#__PURE__*/_react.default.createElement("div", null, isGameActive == 1 ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_activeGameInfo.default, {
     wallet: wallet,
     currentPlayer: currentPlayer,
     isGameActive: isGameActive,
@@ -36447,10 +36454,13 @@ var App = function App(_ref) {
   }, /*#__PURE__*/_react.default.createElement("button", {
     onClick: signOut
   }, "Log Out"), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: checkNewMoves
+    onClick: function onClick() {
+      return getGameState(true);
+    }
   }, "Check For New Moves"))) : /*#__PURE__*/_react.default.createElement(_newGame.default, {
     wallet: wallet,
-    contractId: contractId
+    contractId: contractId,
+    onNewGame: getGameState
   })) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h4", null, "Please Sign In To Play."), /*#__PURE__*/_react.default.createElement("button", {
     onClick: signIn
   }, "Log in"))), /*#__PURE__*/_react.default.createElement(_matchBoard.default, {
@@ -36469,7 +36479,7 @@ var App = function App(_ref) {
 var _default = App;
 exports.default = _default;
 },{"react":"../node_modules/react/index.js","./assets/matches-title/title2x.png":"assets/matches-title/title2x.png","./components/active-game-info":"components/active-game-info.js","./components/instructions":"components/instructions.js","./components/match-board":"components/match-board.js","./components/newGame":"components/newGame.js","buffer":"../node_modules/buffer/index.js"}],"config.js":[function(require,module,exports) {
-var CONTRACT_NAME = undefined || "dev-1653683750505-87474554664550";
+var CONTRACT_NAME = undefined || "js-game.examples.benjiman.testnet";
 
 function getConfig(env) {
   switch (env) {
@@ -51111,7 +51121,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55954" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58035" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

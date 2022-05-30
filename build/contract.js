@@ -112,7 +112,7 @@ let NimContract = NearBindgen(_class = (_class2 = class NimContract extends Near
 
     this.currentTurn = 1; //keep track of whether or not a game is active or not
 
-    this.isGameActive = true;
+    this.isGameActive = 1;
   }
   /*
       Function to make a move. Pass in a row and a number of sticks to remove.
@@ -122,7 +122,7 @@ let NimContract = NearBindgen(_class = (_class2 = class NimContract extends Near
 
   play(row, number) {
     //perform necessary assertions before moving on with the core logic
-    assert(this.isGameActive == true, "game must be active in order to play.");
+    assert(this.isGameActive == 1, "game must be active in order to play.");
     assert(number > 0, "must pass in a valid number of sticks to remove.");
     assert(row in this.boardState, "must pass in a valid row.");
     assert(this.boardState[row] >= number, "cannot remove more sticks than what is available in the row."); //get the current player 
@@ -145,15 +145,21 @@ let NimContract = NearBindgen(_class = (_class2 = class NimContract extends Near
 
     if (totalLeft == 1) {
       env.log(`${this.currentTurn == 1 ? this.playerOne : this.playerTwo} has won the game!`);
-      this.isGameActive = false;
+      this.isGameActive = 0;
+      this.boardState = {
+        "row1": 1,
+        "row2": 2,
+        "row3": 3,
+        "row4": 4,
+        "row5": 5
+      };
+      return;
     } else {
       env.log(`There are ${totalLeft} left`);
     }
 
-    if (totalLeft != 1) {
-      this.currentTurn = this.currentTurn % 2 + 1;
-      env.log(`current turn after switching ${this.currentTurn}`);
-    }
+    this.currentTurn = this.currentTurn % 2 + 1;
+    env.log(`current turn after switching ${this.currentTurn}`);
   }
   /*
       start a new game. this can only be called if there is no game active.
@@ -161,7 +167,7 @@ let NimContract = NearBindgen(_class = (_class2 = class NimContract extends Near
 
 
   newGame(playerOne, playerTwo) {
-    assert(this.isGameActive == false, "cannot start a new game when one is currently active"); //set default values for the board state of the game. 
+    assert(this.isGameActive == 0, "cannot start a new game when one is currently active"); //set default values for the board state of the game. 
 
     this.boardState = {
       "row1": 1,
@@ -176,7 +182,7 @@ let NimContract = NearBindgen(_class = (_class2 = class NimContract extends Near
 
     this.currentTurn = 1; //keep track of whether or not a game is active or not
 
-    this.isGameActive = true;
+    this.isGameActive = 1;
   }
   /*
       get the current state of the smart contract. This includes:

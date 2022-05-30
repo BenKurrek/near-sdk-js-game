@@ -17,7 +17,7 @@ const App = ({ wallet, contractId }) => {
   const [playerOne, setPlayerOne] = useState("");
   const [playerTwo, setPlayerTwo] = useState("");
   const [currentPlayer, setCurrentPlayer] = useState("");
-  const [isGameActive, setIsGameActive] = useState(true);
+  const [isGameActive, setIsGameActive] = useState(1);
 
   const [selectedNumber, setSelectedNumber] = useState(0);
   const [selectedRow, setSelectedRow] = useState("");
@@ -26,7 +26,7 @@ const App = ({ wallet, contractId }) => {
   useEffect(async () => {
     console.log(contractId)
     if (wallet?.getAccountId()) {
-      await checkNewMoves();
+      await getGameState();
     }
   }, []);
 
@@ -48,12 +48,17 @@ const App = ({ wallet, contractId }) => {
     setSelectedMatchIndex(0)
   };
 
-  const checkNewMoves = async () => {
+  const getGameState = async (movePlayed) => {
     try {
       let args = encodeCall(contractId, 'getState', '');
       const stateView = await wallet.account().viewFunction("jsvm.testnet", 'view_js_contract', args, {
         stringify: (val) => val,
       });
+
+      if(movePlayed && stateView.isGameActive == 0) {
+        alert(`${currentPlayer} Has Won The Game!`)
+        location.reload();
+      }
 
       if (stateView.currentTurn != currentTurn) {
         setCurrentState(stateView.boardState);
@@ -62,12 +67,11 @@ const App = ({ wallet, contractId }) => {
         setPlayerTwo(stateView.playerTwo);
         setCurrentPlayer(stateView.currentTurn == "1" ? stateView.playerOne : stateView.playerTwo)
         setIsGameActive(stateView.isGameActive);
-        console.log("new turn!")
-      } else {
-        console.log("no new turn dedected...")
+      } else if(stateView.isGameActive == 1) {
+        alert("no new turn detected...")
       }
     } catch (e) {
-      setIsGameActive(false);
+      setIsGameActive(0);
     }
   };
 
@@ -83,12 +87,11 @@ const App = ({ wallet, contractId }) => {
       });
       console.log('result: ', result)
       setLoading(false)
-      checkNewMoves();
     } catch (e) {
       alert(e)
       setLoading(false)
-      checkNewMoves()
     }
+    getGameState(true);
   };
 
   return (
@@ -105,7 +108,7 @@ const App = ({ wallet, contractId }) => {
           <Instructions />
           {wallet.getAccountId() ?
             <div>
-              {isGameActive == true ?
+              {isGameActive == 1 ?
                 <div>
                   <ActiveGameInfo
                     wallet={wallet}
@@ -137,11 +140,11 @@ const App = ({ wallet, contractId }) => {
                   </h4>
                   <div className="spaced">
                     <button onClick={signOut}>Log Out</button>
-                    <button onClick={checkNewMoves}>Check For New Moves</button>
+                    <button onClick={() => getGameState(true)}>Check For New Moves</button>
                   </div>
                 </div>
                 :
-                <NewGame wallet={wallet} contractId={contractId}/>
+                <NewGame wallet={wallet} contractId={contractId} onNewGame={getGameState}/>
               }
             </div>
             :

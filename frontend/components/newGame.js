@@ -5,7 +5,7 @@ function encodeCall(contract, method, args) {
     return Buffer.concat([Buffer.from(contract), Buffer.from([0]), Buffer.from(method), Buffer.from([0]), Buffer.from(args)])
 }
 
-const NewGame = ({ wallet, contractId }) => {
+const NewGame = ({ wallet, contractId, onNewGame }) => {
     const [playerOne, setPlayerOne] = useState("");
     const [playerTwo, setPlayerTwo] = useState("");
     const [loading, setLoading] = useState(false);
@@ -24,6 +24,7 @@ const NewGame = ({ wallet, contractId }) => {
             });
             console.log('result: ', result)
             setLoading(false)
+            onNewGame();
         } catch (e) {
             console.log('e1: ', e)
             try {

@@ -31,7 +31,7 @@ class NimContract extends NearContract {
         this.currentTurn = 1;
 
         //keep track of whether or not a game is active or not
-        this.isGameActive = true;
+        this.isGameActive = 1;
     }
 
     /*
@@ -41,7 +41,7 @@ class NimContract extends NearContract {
     @call
     play(row, number) {
         //perform necessary assertions before moving on with the core logic
-        assert(this.isGameActive == true, "game must be active in order to play.")
+        assert(this.isGameActive == 1, "game must be active in order to play.")
         assert(number > 0, "must pass in a valid number of sticks to remove.")
         assert(row in this.boardState, "must pass in a valid row.")
         assert(this.boardState[row] >= number, "cannot remove more sticks than what is available in the row.")
@@ -66,15 +66,21 @@ class NimContract extends NearContract {
         //if there is only 1 stick left after making the move, the current player has won the game.
         if(totalLeft == 1) {
             env.log(`${this.currentTurn == 1 ? this.playerOne : this.playerTwo} has won the game!`);
-            this.isGameActive = false;
+            this.isGameActive = 0;
+            this.boardState = {
+                "row1": 1,
+                "row2": 2,
+                "row3": 3,
+                "row4": 4,
+                "row5": 5
+            }
+            return;
         } else {
             env.log(`There are ${totalLeft} left`);
         }
 
-        if(totalLeft != 1) {
-            this.currentTurn = this.currentTurn % 2 + 1
-            env.log(`current turn after switching ${this.currentTurn}`)
-        }
+        this.currentTurn = this.currentTurn % 2 + 1
+        env.log(`current turn after switching ${this.currentTurn}`)
     }
 
     /*
@@ -82,7 +88,7 @@ class NimContract extends NearContract {
     */
     @call
     newGame(playerOne, playerTwo) {
-        assert(this.isGameActive == false, "cannot start a new game when one is currently active")
+        assert(this.isGameActive == 0, "cannot start a new game when one is currently active")
 
         //set default values for the board state of the game. 
         this.boardState = {
@@ -100,7 +106,7 @@ class NimContract extends NearContract {
         this.currentTurn = 1;
 
         //keep track of whether or not a game is active or not
-        this.isGameActive = true;
+        this.isGameActive = 1;
     }
 
     /*

@@ -3,7 +3,7 @@ import React from "react";
 const ActiveGameInfo = ({ wallet, currentPlayer, isGameActive, playerOne, playerTwo, selectedRow, selectedNumber }) => {
     return (
         <div className="game-info">
-            {isGameActive == true ?
+            {isGameActive == 1 ?
                 <h3>
                     Game Status: Live!
                 </h3>
